@@ -1,0 +1,206 @@
+  apiVersion: ceph.rook.io/v1
+  kind: CephCluster
+  metadata:
+    annotations:
+      meta.helm.sh/release-name: stx-rook-ceph
+      meta.helm.sh/release-namespace: kube-system
+    creationTimestamp: "2022-11-07T11:23:40Z"
+    finalizers:
+    - cephcluster.ceph.rook.io
+    generation: 2606
+    labels:
+      app.kubernetes.io/managed-by: Helm
+    name: ceph-cluster
+    namespace: kube-system
+    resourceVersion: "869540"
+    uid: 99674c73-427a-4bd8-bf72-570aa809971c
+  spec:
+    cephVersion:
+      image: registry.local:9001/library/ceph:v14.2.10
+    cleanupPolicy: {}
+    crashCollector:
+      disable: false
+    dashboard:
+      enabled: true
+      ssl: true
+    dataDirHostPath: /var/lib/ceph
+    disruptionManagement: {}
+    external:
+      enable: false
+    mgr: {}
+    mon:
+      count: 3
+    monitoring:
+      rulesNamespace: kube-system
+    network:
+      hostNetwork: true
+      provider: ""
+      selectors: null
+    placement:
+      mgr:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: ceph-mgr-placement
+                operator: In
+                values:
+                - enabled
+      mon:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: ceph-mon-placement
+                operator: In
+                values:
+                - enabled
+    rbdMirroring:
+      workers: 0
+    removeOSDsIfOutAndSafeToRemove: false
+    resources:
+      mgr:
+        limits:
+          cpu: "4"
+          memory: 10Gi
+        requests:
+          cpu: 100m
+          memory: 1Gi
+      mon:
+        limits:
+          cpu: "4"
+          memory: 10Gi
+        requests:
+          cpu: 100m
+          memory: 1Gi
+      osd:
+        limits:
+          cpu: "4"
+          memory: 10Gi
+        requests:
+          cpu: 100m
+          memory: 1Gi
+    storage:
+      config:
+        databaseSizeMB: "5120"
+        osdsPerDevice: "1"
+        storeType: bluestore
+        walSizeMB: "5120"
+      nodes:
+      - config:
+          databaseSizeMB: "5120"
+          storeType: bluestore
+          walSizeMB: "5120"
+        devices:
+        - config: null
+          name: /dev/disk/by-id/wwn-0x66c92bf0009ee1762aac46bb07ac710b
+        - config: null
+          name: /dev/disk/by-id/wwn-0x66c92bf0009ee1762aac46d70954ada2
+        name: k5027
+        resources: {}
+      - config:
+          databaseSizeMB: "5120"
+          storeType: bluestore
+          walSizeMB: "5120"
+        devices:
+        - config: null
+          name: /dev/disk/by-id/wwn-0x600605b00d03e7202a613e5914d8e49c
+        - config: null
+          name: /dev/disk/by-id/wwn-0x600605b00d03e7202a613e761699fb23
+        - config: null
+          name: /dev/disk/by-id/wwn-0x600605b00d03e7202a613ee21d079cf2
+        name: k5024
+        resources: {}
+      - config:
+          databaseSizeMB: "5120"
+          storeType: bluestore
+          walSizeMB: "5120"
+        devices:
+        - config: null
+          name: /dev/disk/by-id/wwn-0x5000c500d4b084d6
+        - config: null
+          name: /dev/disk/by-id/wwn-0x5000c500d4a1c966
+        - config: null
+          name: /dev/disk/by-id/wwn-0x55cd2e4154865110
+        name: k5023
+        resources: {}
+      - config:
+          databaseSizeMB: "5120"
+          storeType: bluestore
+          walSizeMB: "5120"
+        devices:
+        - config: null
+          name: /dev/disk/by-id/wwn-0x5000c500d4a0fb02
+        - config: null
+          name: /dev/disk/by-id/wwn-0x5000c500d4a11f4e
+        - config: null
+          name: /dev/disk/by-id/wwn-0x55cd2e41526b1a85
+        name: k5021
+        resources: {}
+      - config:
+          databaseSizeMB: "5120"
+          storeType: bluestore
+          walSizeMB: "5120"
+        devices:
+        - config: null
+          name: /dev/disk/by-id/wwn-0x5000c500d4c1c622
+        - config: null
+          name: /dev/disk/by-id/wwn-0x5000c500d4a16f9c
+        name: k5020
+        resources: {}
+      storageClassDeviceSets: null
+      useAllDevices: false
+  status:
+    ceph:
+      details:
+        MANY_OBJECTS_PER_PG:
+          message: 1 pools have many more objects per pg than average
+          severity: HEALTH_WARN
+      health: HEALTH_WARN
+      lastChanged: "2022-11-08T11:29:16Z"
+      lastChecked: "2022-11-09T06:53:05Z"
+      previousHealth: HEALTH_OK
+    conditions:
+    - lastHeartbeatTime: "2022-11-08T01:44:52Z"
+      lastTransitionTime: "2022-11-07T11:23:42Z"
+      message: Failed to configure ceph cluster
+      reason: ClusterFailure
+      status: "True"
+      type: Failure
+    - lastHeartbeatTime: "2022-11-07T11:23:42Z"
+      lastTransitionTime: "2022-11-07T11:23:42Z"
+      status: "False"
+      type: Ignored
+    - lastHeartbeatTime: "2022-11-07T11:23:42Z"
+      lastTransitionTime: "2022-11-07T11:23:42Z"
+      status: "False"
+      type: Upgrading
+    - lastHeartbeatTime: "2022-11-08T01:45:52Z"
+      lastTransitionTime: "2022-11-07T11:23:51Z"
+      message: Cluster progression is completed
+      reason: ProgressingCompleted
+      status: "False"
+      type: Progressing
+    - lastHeartbeatTime: "2022-11-08T01:34:18Z"
+      lastTransitionTime: "2022-11-07T11:26:12Z"
+      message: Cluster created successfully
+      reason: ClusterCreated
+      status: "True"
+      type: Ready
+    - lastHeartbeatTime: "2022-11-07T11:26:13Z"
+      lastTransitionTime: "2022-11-07T11:26:13Z"
+      message: Cluster progression is completed
+      reason: ProgressingCompleted
+      status: "False"
+    - lastHeartbeatTime: "2022-11-08T01:44:29Z"
+      lastTransitionTime: "2022-11-08T01:32:36Z"
+      message: Cluster updating is completed
+      reason: UpdateCompleted
+      status: "False"
+      type: Updating
+    message: Cluster created successfully
+    phase: Ready
+    state: Created
+    version:
+      image: registry.local:9001/library/ceph:v14.2.10
+      version: 14.2.10-0
